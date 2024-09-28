@@ -1,0 +1,17 @@
+<div class="flex items-center justify-between">
+  <label class="leading-loose">Personas asignadas <span class="text-red-400">*</span></label>
+  <button type="button" (click)="openModal(content)" aria-label="add"
+    class="middle none center flex items-center justify-center rounded-lg font-sans text-xs font-bold uppercase text-indigo-500 transition-all shadow-none"
+    data-ripple-dark="true">
+    <span class="material-symbols-outlined text-md pointer">
+      add
+    </span>
+  </button>
+
+</div>
+<div class="flex flex-col p-1 bg-gray-100 rounded-sm hover:shodow-lg w-full my-1" *ngFor="let user of users()">
+  <app-user-detail [user]="user" (handleDeleteUser)="handleDeleteUser($event)"></app-user-detail>
+</div>
+<ng-template #content let-modal>
+  <app-user-create [modal]="modal" (handleAddUser)="addUser($event)"></app-user-create>
+</ng-template>

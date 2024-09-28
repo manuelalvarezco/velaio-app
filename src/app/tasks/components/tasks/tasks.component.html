@@ -1,0 +1,35 @@
+<div *ngIf="tasks().length" class="relative">
+  <div class="h-screen bg-white p-3 flex flex-col md:items-center md:justify-center">
+    <div class="flex justify-between items-center mb-3">
+      <img src="../../../../assets/icons/logo.png" width="100" alt="logo">
+    </div>
+    <div class="pt-2">
+      <div class="flex justify-between">
+        <button type="button" (click)="changeFilter('all')"
+          class="text-purple-700 font-normal py-2 px-2 transition duration-300 ease-in-out focus:outline-none focus:shadow-outline border-b-2 focus:border-purple-700 focus:text-purple">Todas</button>
+        <button type="button" (click)="changeFilter('completed')"
+          class="text-purple-700 font-normal py-2 px-2 transition duration-300 ease-in-out focus:outline-none focus:shadow-outline border-b-2  focus:border-purple-700 focus:text-purple">Completadas</button>
+        <button type="button" (click)="changeFilter('pending')"
+          class="text-purple-700 font-normal py-2 px-2 transition duration-300 ease-in-out focus:outline-none focus:shadow-outline border-b-2  focus:border-purple-700 focus:text-purple">Pendientes</button>
+      </div>
+    </div>
+    <div class="flex flex-col items-center justify-center md:max-w-md w-full mt-3">
+      <div *ngIf="!taskByFilter().length" class="h-40 w-60 flex items-center justify-center">
+        <h2 class="text-indigo-500"> No hay Tareas!</h2>
+      </div>
+      <div class="w-full min-h-60" *ngIf="taskByFilter().length">
+        <div *ngFor="let task of taskByFilter()" class="w-full">
+          <app-task-detail [task]="task" (handleToggleTask)="handleToggleTask($event, task)"></app-task-detail>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col items-center justify-center md:mt-8">
+      <button routerLink="create" type="button"
+        class="text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-lg hover:bg-indigo-800 h-12 m-2 text-sm px-20">Crear
+        tarea</button>
+    </div>
+  </div>
+</div>
+<div class="w-full" *ngIf="!tasks().length">
+  <app-empty-task></app-empty-task>
+</div>
