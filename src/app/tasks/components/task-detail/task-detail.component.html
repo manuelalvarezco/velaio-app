@@ -22,7 +22,7 @@
     <h4 class="text-sm">Personas asociadas:</h4>
     <ul>
       <li class="text-sm" *ngFor="let user of task.users">
-        <span>{{ user.fullName.name}} ({{ user.age}})</span>
+        <span>{{ user.name}} ({{ user.age}})</span>
         <ul class="ml-2">
           <li>Habilidades: <span>{{ user.habilities.join(',') }}</span></li>
         </ul>

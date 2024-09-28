@@ -6,40 +6,35 @@
   </div>
   <div class="modal-body">
     <div class="w-full">
-      <div class="w-full" formGroupName="fullName">
-        <div class="flex flex-col mt-2">
-          <label class="leading-loose text-sm">Nombre<span class="text-red-400">*</span></label>
-          <input type="text" formControlName="name"
-            class="px-3 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600">
-          <span class="text-red-400 text-sm" *ngIf="nameField?.touched && !nameField?.valid">Nombre requerido</span>
-        </div>
-        <div class="flex flex-col mt-2">
-          <label class="leading-loose text-sm">Apellido<span class="text-red-400">*</span></label>
-          <input type="text" formControlName="lastName"
-            class="px-3 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600">
-          <span class="text-red-400 text-sm" *ngIf="lastNameField?.touched && !lastNameField?.valid">Apellido requerido</span>
-        </div>
+      <div class="flex flex-col mt-2">
+        <label class="leading-loose text-sm">Nombre<span class="text-red-400">*</span></label>
+        <input type="text" formControlName="name"
+          class="px-3 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600">
+        <span class="text-red-400 text-sm" *ngIf="nameField?.touched && !nameField?.valid">Nombre requerido</span>
       </div>
       <div class="flex flex-col mt-2">
         <label class="leading-loose text-sm">Edad<span class="text-red-400">*</span></label>
         <input type="number" formControlName="age"
           class="px-3 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600">
         <span class="text-red-400 text-sm" *ngIf="ageField?.touched && !ageField?.valid">Edad requerida</span>
-        <span class="text-red-400 text-sm" *ngIf="ageField?.hasError('min') && ageField?.dirty">Edad inválida, debe ser mayor de 18 años.</span>
-        <span class="text-red-400 text-sm" *ngIf="ageField?.hasError('max') && ageField?.dirty">Edad inválida, debe ser menor de 99 años.</span>
+        <span class="text-red-400 text-sm" *ngIf="ageField?.hasError('min') && ageField?.dirty">Edad inválida, debe ser
+          mayor de 18 años.</span>
+        <span class="text-red-400 text-sm" *ngIf="ageField?.hasError('max') && ageField?.dirty">Edad inválida, debe ser
+          menor de 99 años.</span>
       </div>
       <div class="flex flex-col mt-2">
         <label class="leading-loose text-sm">Habilidades<span class="text-red-400">*</span></label>
-        <input (keydown.enter)="addHability($event)" formControlName="habilities" type="text"
+        <input (keydown.enter)="addHability($event)" type="text" [formControl]="habilityText"
           placeholder="Ej: Angular + Enter"
           class="px-3 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600">
-          <span class="text-red-400 text-sm" *ngIf="!habilityField?.valid && habilityField?.touched">Edad inválida, debe ser menor de 99 años.</span>
-        </div>
+      </div>
       <div class="flex flex-wrap mt-3 justify-start">
-        <div *ngFor="let hability of habilities(); let i = index"
+        <div formArrayName="habilities" *ngFor="let hability of habilitiesField.controls; let i = index"
           class="m-2 center flex items-center select-none whitespace-nowrap rounded-lg border border-purple-700 py-2 px-3.5 align-baseline font-sans text-xs font-bold uppercase leading-none text-purple-700"
           data-dismissible="chip">
-          <div class="mr-5 mt-px">{{ hability }}</div>
+          <div class="mr-5 mt-px" [formGroupName]="i">
+            <input type="text" formControlName="name" class="disabled:bg-white focus:outline-none border-indigo-300">
+          </div>
           <button type="button" (click)="deleteHability(i)"
             class="middle none center flex items-center justify-center rounded-lg font-sans text-xs font-bold uppercase text-red-500 transition-all shadow-none"
             data-ripple-dark="true">
@@ -47,14 +42,12 @@
               close
             </span>
           </button>
-
-
         </div>
       </div>
     </div>
   </div>
   <div class="flex justify-center">
-    <button type="button" [disabled]="!form.valid || !habilities().length"
+    <button type="button" [disabled]="!form.valid || !habilitiesField.value?.length"
       class="text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-lg disabled:bg-indigo-200 hover:bg-indigo-800 h-10 m-2 text-sm px-10"
       (click)="addUser()">Agregar</button>
   </div>
