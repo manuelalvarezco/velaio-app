@@ -2,14 +2,11 @@ import {
   Component,
   EventEmitter,
   inject,
-  Input,
   Output,
   signal,
   TemplateRef,
 } from '@angular/core';
 import {
-  ModalDismissReasons,
-  NgbDatepickerModule,
   NgbModal,
 } from '@ng-bootstrap/ng-bootstrap';
 
